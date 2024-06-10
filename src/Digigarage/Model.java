@@ -59,8 +59,9 @@ public class Model {
         System.out.println("carvaan.Model.authenticate()" + admin);
         Statement st = con.createStatement();
         ResultSet rs = st.executeQuery(query);
+        boolean res = rs.next();
         con.close();
-        return rs.next();
+        return res;
     }
     
     public static ArrayList<Accessory> getInventory() throws SQLException{
@@ -120,6 +121,17 @@ public class Model {
         }
 
         return res;
+    }
+    
+    public static void updateAccessory(Accessory obj) throws SQLException{
+        connection();
+        PreparedStatement stmt=con.prepareStatement("update Accessories set NAME = ?,STOCK = ?,PRICE = ? where ID = ?");
+        stmt.setString(1, obj.getName());
+        stmt.setInt(2, obj.getStock());
+        stmt.setInt(3, obj.getPrice());
+        stmt.setString(4, obj.getID());
+        stmt.execute();
+        con.close();
     }
     
 }
