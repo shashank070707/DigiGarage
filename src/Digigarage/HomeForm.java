@@ -5,6 +5,7 @@
 package Digigarage;
 
 import Digigarage.Entity.Accessory;
+import Digigarage.Entity.Car;
 import Digigarage.Entity.Customer;
 import java.awt.Button;
 import java.sql.SQLException;
@@ -20,7 +21,9 @@ import javax.swing.table.DefaultTableModel;
 public class HomeForm extends javax.swing.JFrame {
     DefaultTableModel tblModel;
     DefaultTableModel tblCustomersModel;
+    DefaultTableModel tblCarsModel;
     int selectedRow;
+    
     /**
      * Creates new form HomeForm
      */
@@ -30,6 +33,7 @@ public class HomeForm extends javax.swing.JFrame {
         //HomeForm obj = new HomeForm();
         this.loadInventory();
         this.loadCustomers();
+        this.loadCars();
     }
 
     /**
@@ -61,6 +65,8 @@ public class HomeForm extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCustomers = new javax.swing.JTable();
+        btnAddCustomer = new javax.swing.JButton();
+        btnDeleteCustomer = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel6 = new javax.swing.JPanel();
@@ -120,23 +126,23 @@ public class HomeForm extends javax.swing.JFrame {
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1347, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGap(118, 118, 118)
                         .addComponent(btnAddPart, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(162, 162, 162)
                         .addComponent(btnDeletePart, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(197, 197, 197)
-                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(9, Short.MAX_VALUE))
+                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1303, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(23, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddPart, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDeletePart, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -162,10 +168,7 @@ public class HomeForm extends javax.swing.JFrame {
 
         tblCars.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Registration Number", "Model", "Owner", "Contact Details", "Date of Purchase"
@@ -227,6 +230,8 @@ public class HomeForm extends javax.swing.JFrame {
 
         tabCustomers.addTab("Cars", jPanel3);
 
+        jPanel8.setBackground(new java.awt.Color(255, 255, 153));
+
         tblCustomers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -237,6 +242,15 @@ public class HomeForm extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblCustomers);
 
+        btnAddCustomer.setText("Add Customer");
+        btnAddCustomer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddCustomerActionPerformed(evt);
+            }
+        });
+
+        btnDeleteCustomer.setText("Delete Customer");
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -245,13 +259,23 @@ public class HomeForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1350, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(234, 234, 234)
+                .addComponent(btnAddCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnDeleteCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(307, 307, 307))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDeleteCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -364,11 +388,20 @@ public class HomeForm extends javax.swing.JFrame {
 
     private void btnAddCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCarActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnAddCarActionPerformed
 
     private void btnDeleteCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnDeleteCarActionPerformed
+
+    private void btnAddCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCustomerActionPerformed
+        // TODO add your handling code here:
+        AddCustomerForm addCustomerForm = new AddCustomerForm();
+        addCustomerForm.setTblCustomersModel(tblCustomersModel);
+        addCustomerForm.setVisible(true);
+        
+    }//GEN-LAST:event_btnAddCustomerActionPerformed
 
     public Accessory getSelectedAccessory(){
         selectedRow = tblInventory.getSelectedRow();
@@ -453,11 +486,31 @@ public class HomeForm extends javax.swing.JFrame {
         }
         
     }
+    
+    public void loadCars() throws SQLException{
+        ArrayList<Car> cars= Model.getCars();
+        tblCarsModel = (DefaultTableModel)tblCars.getModel();
+        System.out.println("Digigarage.HomeForm.loadCars()");
+        for(Car car : cars){
+            String a = car.getRegistrationNumber();
+            String b = car.getOwnerName();
+            String c = car.getOwnerContact();
+            String d = car.getModel();
+            String e = String.valueOf(car.getDateOfPurchase());
+            Object arr[] = {a,b,c,d,e};
+            tblCarsModel.addRow(arr);
+
+        }
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddCar;
+    private javax.swing.JButton btnAddCustomer;
     private javax.swing.JButton btnAddPart;
     private javax.swing.JButton btnDeleteCar;
+    private javax.swing.JButton btnDeleteCustomer;
     private javax.swing.JButton btnDeletePart;
     private javax.swing.JButton btnEdit;
     private javax.swing.JLabel jLabel1;

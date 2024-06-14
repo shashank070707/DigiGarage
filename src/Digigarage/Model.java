@@ -3,6 +3,7 @@ package Digigarage;
 
 import Digigarage.Entity.Accessory;
 import Digigarage.Entity.Admin;
+import Digigarage.Entity.Car;
 import Digigarage.Entity.Customer;
 import static java.lang.Math.max;
 import java.sql.*;
@@ -133,5 +134,55 @@ public class Model {
         stmt.execute();
         con.close();
     }
+
+    static ArrayList<Car> getCars() throws SQLException {
+        connection();
+        String query = "select REGISTRATION_NUMBER,MODEL,NAME,PHONE_NUMBER,DATE_OF_PURCHASE from car inner join customer on owner = PHONE_NUMBER";
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery(query);
+        ArrayList<Car> cars = new ArrayList<>();
+        while(rs.next()){
+            cars.add(new Car(rs.getString(1),rs.getString(3),rs.getString(4),rs.getString(2),rs.getDate(5)));
+        }
+        return cars;
+    }
     
+    public static void addCustomer(Customer customer) throws SQLException{
+        connection();
+        PreparedStatement stmt=con.prepareStatement("insert into customer values(?,?,?)");
+        stmt.setString(1, customer.getPhoneNumber());
+        stmt.setString(2, customer.getName());
+        stmt.setString(3, customer.getAddress());
+        
+        stmt.execute();
+        con.close();
+    }
+
+    static String getOwnerName(String ownerContact) throws SQLException {
+        connection();
+        String query = "select NAME from customer where PHONE_NUMBER = '" + ownerContact + "'";
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery(query);
+        if(rs.next()){
+            return rs.getString(1);
+        }
+        else{
+            return null;
+        }
+        
+    }
+
+    static void addCar(Car car) throws SQLException {
+        connection();
+        PreparedStatement stmt=con.prepareStatement("insert into car values(?,?,?,?)");
+        stmt.setString(1, car.getOwnerContact());
+        stmt.setString(2, car.getRegistrationNumber());
+        stmt.setString(3, car.getModel());
+        stmt.setString(4, String.valueOf(car.getDateOfPurchase()));
+        
+        stmt.execute();
+        con.close();
+        
+    }
+   
 }

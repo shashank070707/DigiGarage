@@ -7,13 +7,15 @@ import java.sql.Date;
 
 public class Car {
     String registrationNumber;
-    String owner;
+    String ownerName;
+    String ownerContact;
     String model;
     Date dateOfPurchase;
 
-    public Car(String registrationNumber, String owner, String model, Date dateOfPurchase) {
+    public Car(String registrationNumber, String ownerName, String ownerContact, String model, Date dateOfPurchase) {
         this.registrationNumber = registrationNumber;
-        this.owner = owner;
+        this.ownerName = ownerName;
+        this.ownerContact = ownerContact;
         this.model = model;
         this.dateOfPurchase = dateOfPurchase;
     }
@@ -22,28 +24,36 @@ public class Car {
         return registrationNumber;
     }
 
-    public void setRegistrationNumber(String registrationNumber) {
-        this.registrationNumber = registrationNumber;
+    public String getOwnerName() {
+        return ownerName;
     }
 
-    public String getOwner() {
-        return owner;
-    }
-
-    public void setOwner(String owner) {
-        this.owner = owner;
+    public String getOwnerContact() {
+        return ownerContact;
     }
 
     public String getModel() {
         return model;
     }
 
-    public void setModel(String model) {
-        this.model = model;
-    }
-
     public Date getDateOfPurchase() {
         return dateOfPurchase;
+    }
+
+    public void setRegistrationNumber(String registrationNumber) {
+        this.registrationNumber = registrationNumber;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+
+    public void setOwnerContact(String ownerContact) {
+        this.ownerContact = ownerContact;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
     }
 
     public void setDateOfPurchase(Date dateOfPurchase) {
@@ -52,9 +62,9 @@ public class Car {
 
     @Override
     public String toString() {
-        return "Car{" + "registrationNumber=" + registrationNumber + ", owner=" + owner + ", model=" + model + ", dateOfPurchase=" + dateOfPurchase + '}';
+        return "Car{" + "registrationNumber=" + registrationNumber + ", ownerName=" + ownerName + ", ownerContact=" + ownerContact + ", model=" + model + ", dateOfPurchase=" + dateOfPurchase + '}';
     }
-    
+
     
     
 }
