@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.Date;  
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -20,6 +21,9 @@ public class AddCarForm extends javax.swing.JFrame {
     /**
      * Creates new form AddCarForm
      */
+    
+    DefaultTableModel tblCarsModel;
+    
     public AddCarForm() {
         initComponents();
     }
@@ -158,6 +162,7 @@ public class AddCarForm extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
@@ -180,6 +185,7 @@ public class AddCarForm extends javax.swing.JFrame {
             
             Car car = new Car(registrationNumber,name,ownerContact,model,date);
             Model.addCar(car);
+            loadSavedCar(car);
             this.dispose();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -222,6 +228,20 @@ public class AddCarForm extends javax.swing.JFrame {
         });
     }
     
+    public void loadSavedCar(Car car){
+        String a = car.getRegistrationNumber();
+        String c = car.getOwnerName();
+        String d = car.getOwnerContact();
+        String e = String.valueOf(car.getDateOfPurchase());
+        String b = car.getModel();
+        Object arr[] = {a,b,c,d,e};
+        
+        tblCarsModel.addRow(arr);
+    }
+    
+    public void setTblModel(DefaultTableModel tblCarsModel){
+        this.tblCarsModel = tblCarsModel;
+    }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

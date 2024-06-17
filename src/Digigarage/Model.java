@@ -175,8 +175,8 @@ public class Model {
     static void addCar(Car car) throws SQLException {
         connection();
         PreparedStatement stmt=con.prepareStatement("insert into car values(?,?,?,?)");
-        stmt.setString(1, car.getOwnerContact());
-        stmt.setString(2, car.getRegistrationNumber());
+        stmt.setString(2, car.getOwnerContact());
+        stmt.setString(1, car.getRegistrationNumber());
         stmt.setString(3, car.getModel());
         stmt.setString(4, String.valueOf(car.getDateOfPurchase()));
         
